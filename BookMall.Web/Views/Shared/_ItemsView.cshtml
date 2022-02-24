@@ -2,10 +2,10 @@
 
     <div class="container py-5">
         <p class="mx-5">
-            <%- include('./categories') -%>
+            @Html.Partial("_Categories")
         </p>
         <div class="row">
-            <%- include('./pagination') -%>
+            @Html.Partial("_Pagination")
         </div>
         <div class="row">
             <% books.forEach(function (book, index) { %>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="row">
-            <%- include('./pagination') -%>
+            @Html.Partial("_Pagination")
         </div>
     </div>
 </section>
