@@ -1,24 +1,29 @@
-﻿<div class="container my-4">
+﻿@model BookMall.Web.Models.Book
+
+<div class="container my-4">
     <div class="card border-primary">
         <div class="card-body">
             <h3 class="card-title">
-                <%= book.title %>
+                @Model.Title
             </h3>
-            <h6 class="card-subtitle">author</h6>
+            <h6 class="card-subtitle">
+                @Model.Author
+            </h6>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6">
                     <div class="white-box text-center">
-                        <img src="<%= book.src %>" class="img-responsive" width="100%">
+                        <img src="@Model.Img" class="img-responsive" width="100%">
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6">
                     <h4 class="box-title mt-5">
+                        @Model.Title
                         @ViewBag.id
                     </h4>
                     <p>Lorem Ipsum available,but the majority have suffered alteration in some form,by injected humour,or randomised words which don't look even slightly believable.but the majority have suffered alteration in some form,by injected humour</p>
                     <h2 class="mt-5">
                         $
-                        <%= book.price %>
+                        @Model.Price
                         <small class="text-success">(36%off)</small>
                     </h2>
                     <button class="btn btn-dark btn-rounded">Add to Cart</button>
@@ -43,16 +48,20 @@
                                 </tr>
                                 <tr>
                                     <td>Page number</td>
-                                    <td>123</td>
+                                    <td>
+                                        @Model.Pages
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Author</td>
-                                    <td>Person X</td>
+                                    <td>
+                                        @Model.Author
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Category</td>
                                     <td>
-                                        <%= category %>
+                                        @Model.Genre
                                     </td>
                                 </tr>
                             </tbody>

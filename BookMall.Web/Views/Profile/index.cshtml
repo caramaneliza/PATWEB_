@@ -1,4 +1,6 @@
-﻿<div class="container pt-4 pb-5 mb-5">
+﻿@model BookMall.Web.Models.User
+
+<div class="container pt-4 pb-5 mb-5">
     <div class="row flex-lg-nowrap">
 
         <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
@@ -29,7 +31,10 @@
                                 <div class="row">
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+                                                @Model.FirstName
+                                                @Model.LastName
+                                            </h4>
                                         </div>
                                         <div class="text-center text-sm-right">
                                             <span class="badge badge-secondary">administrator</span>
