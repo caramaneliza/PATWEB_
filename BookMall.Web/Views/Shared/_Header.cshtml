@@ -1,31 +1,61 @@
-﻿@using System.Web.Optimization
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <a class="navbar-brand" href="/">
+            <b>
+                Book Mall
+            </b>
+        </a>
 
-    <meta name="description" content="Book Mall template for web technologies class">
-    <meta name="author" content="Plesu Catalin">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2 rounded" type="search" placeholder="Search" aria-label="Search">
+        </form>
 
-    @Styles.Render("~/bundles/bootstrap/css")
-    @Styles.Render("~/bundles/css")
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    @Scripts.Render("~/bundles/jquery")
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="me-auto"></div>
+            <ul class="navbar-nav my-2 my-lg-0">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+                <li class="">
+                    <a class="nav-link" data-bs-toggle="modal" href="#exampleModalToggle" role="button">
+                        <span class="sr-only">
+                            Log In
+                        </span>
+                    </a>
+                </li>
 
-    @Scripts.Render("~/bundles/js")
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profile
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <h6 class="dropdown-header">
+                            Manage Profile
+                        </h6>
 
-    <title>
-       @ViewBag.Title
-    </title>
+                        <a class="dropdown-item" href="/profile">
+                            Personal Center
+                        </a>
 
-</head>
-<body>
+                        <a class="dropdown-item" href="/settings">
+                            Settings
+                        </a>
 
-    @Html.Partial("_Navbar")
+                        <a class="dropdown-item" href="/cart">
+                            Cart
+                        </a>
 
-    <div class="container">
+                        <a class="dropdown-item" href="/library">
+                            My Library
+                        </a>
+
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

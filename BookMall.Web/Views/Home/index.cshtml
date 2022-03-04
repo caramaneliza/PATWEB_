@@ -1,5 +1,12 @@
-﻿@Html.Partial("_Jumbotron")
+﻿@{
+    ViewBag.Title = "Book Mall";
+}
+<div class="container">
 
-@Html.Partial("_Authentification")
+    @Html.Partial("_Jumbotron")
 
-@Html.Partial("_ItemsView")
+    @Html.Partial("_Authentification")
+
+    @Html.Partial("_ItemsView")
+
+</div> 
