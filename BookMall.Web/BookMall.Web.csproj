@@ -365,6 +365,7 @@
     <Content Include="Views\Library\index.cshtml" />
     <Content Include="Views\Cart\index.cshtml" />
     <Content Include="Views\Book\index.cshtml" />
+    <Content Include="Views\Shared\_LayoutItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
