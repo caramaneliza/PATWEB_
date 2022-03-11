@@ -304,6 +304,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -311,6 +312,7 @@
     </Compile>
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -375,12 +377,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookMall.BuisnessLogic\BookMall.BuisnessLogic.csproj">
+      <Project>{3d3ff20b-1e44-44a9-a15c-af3ccef0c272}</Project>
+      <Name>BookMall.BuisnessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookMall.Domain\BookMall.Domain.csproj">
+      <Project>{461c23da-19ab-4348-974d-fa9d18cec760}</Project>
+      <Name>BookMall.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
