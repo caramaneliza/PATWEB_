@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMall.Web", "BookMall.Web\BookMall.Web.csproj", "{CC4568A9-2995-4E8E-B09E-8FC153843799}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMall.BuisnessLogic", "BookMall.BuisnessLogic\BookMall.BuisnessLogic.csproj", "{3D3FF20B-1E44-44A9-A15C-AF3CCEF0C272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMall.Domain", "BookMall.Domain\BookMall.Domain.csproj", "{461C23DA-19AB-4348-974D-FA9D18CEC760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMall.Helpers", "BookMall.Helpers\BookMall.Helpers.csproj", "{6088AC27-142B-4EDC-8818-6FC90A3999A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{CC4568A9-2995-4E8E-B09E-8FC153843799}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC4568A9-2995-4E8E-B09E-8FC153843799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC4568A9-2995-4E8E-B09E-8FC153843799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D3FF20B-1E44-44A9-A15C-AF3CCEF0C272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D3FF20B-1E44-44A9-A15C-AF3CCEF0C272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D3FF20B-1E44-44A9-A15C-AF3CCEF0C272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D3FF20B-1E44-44A9-A15C-AF3CCEF0C272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{461C23DA-19AB-4348-974D-FA9D18CEC760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{461C23DA-19AB-4348-974D-FA9D18CEC760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{461C23DA-19AB-4348-974D-FA9D18CEC760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{461C23DA-19AB-4348-974D-FA9D18CEC760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6088AC27-142B-4EDC-8818-6FC90A3999A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6088AC27-142B-4EDC-8818-6FC90A3999A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6088AC27-142B-4EDC-8818-6FC90A3999A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6088AC27-142B-4EDC-8818-6FC90A3999A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
