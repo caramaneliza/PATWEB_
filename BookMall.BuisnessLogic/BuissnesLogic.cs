@@ -13,5 +13,10 @@ namespace BookMall.BuisnessLogic
         {
             return new SessionBL();
         }
+
+        public IProduct GetProductBL()
+        {
+            return new ProductBL();
+        }
     }
 }

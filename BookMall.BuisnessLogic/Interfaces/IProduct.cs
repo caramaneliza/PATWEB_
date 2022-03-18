@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookMall.Domain.Entities.User;
+using BookMall.Domain.Entities.Product;
 
 namespace BookMall.BuisnessLogic.Interfaces
 {
-    public interface ISession
+    public interface IProduct
     {
-        ULoginResp UserLogin(ULoginData data);
-        string GenUserCookie(ULoginData data);
+        List<ProductData> GetProductList();
+        ProductData GetSingleProduct(int id);
     }
 }

@@ -9,6 +9,7 @@ namespace BookMall.Web.Controllers
 {
     public class BookController : Controller
     {
+
         // GET: Book
         [Route("book/{id?}")]
         public ActionResult Index(string id)
