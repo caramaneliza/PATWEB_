@@ -20,6 +20,9 @@ namespace BookMall.Web.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/js")
                 .Include("~/Scripts/main.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/validation/js").Include(
+                      "~/Scripts/jquery.validate.min.js"));
         }
     }
 }

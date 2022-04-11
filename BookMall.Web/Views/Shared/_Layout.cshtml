@@ -17,16 +17,14 @@
 
 
 
-    <title>
-        Book Mall
-    </title>
+    <title>Book Mall</title>
 
 </head>
 <body>
 
     @Html.Partial("_Header")
 
-    @Html.Partial("_Authentification")
+    @*@Html.Partial("_Authentification")*@
 
 
     @RenderBody()
@@ -36,6 +34,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/validation/js")
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

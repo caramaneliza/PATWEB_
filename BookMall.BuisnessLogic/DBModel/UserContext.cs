@@ -8,7 +8,7 @@ using BookMall.Domain.Entities.User;
 
 namespace BookMall.BuisnessLogic.DBModel
 {
-    class UserContext :  DbContext
+    public class UserContext :  DbContext
     {
         public UserContext() :
                     base("name=BookMall") // connectionstring name define in your web.config
