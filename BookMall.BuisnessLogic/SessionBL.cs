@@ -17,9 +17,8 @@ namespace BookMall.BuisnessLogic
             //LOGIN
             return UserLoginAction(data);
         }
-        public ULoginResp UserSignup(ULoginData data)
+        public ULoginResp UserSignup(USignupData data)
         {
-            //LOGIN
             return UserSignupAction(data);
         }
         public string GenUserCookie(ULoginData data)

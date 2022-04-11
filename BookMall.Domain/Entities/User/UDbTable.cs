@@ -29,6 +29,9 @@ namespace BookMall.Domain.Entities.User
         [Display(Name = "Email Address")]
         [StringLength(30)]
         public string Email { get; set; }
+        
+        [DataType(DataType.Date)]
+        public DateTime FirstLogin { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime LastLogin { get; set; }

@@ -15,10 +15,10 @@
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-group">
-                            @Html.LabelFor(m => m.Credential, new { @class = "control-label" })
-                            @Html.TextBoxFor(m => m.Credential, new
+                            @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Username, new
                        {
-                           placeholder = "example@gmail.com",
+                           placeholder = "Joe Doe",
                            title = "Please enter you username",
                            value = "",
                            name = "username",
@@ -29,17 +29,45 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.Password, new
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Email, new
+                       {
+                           placeholder = "example@gmail.com",
+                           title = "Please enter you email",
+                           value = "",
+                           name = "email",
+                           id = "email",
+                           @class = "form-control"
+                       })
+                            <span class="help-block small">Your unique username to app</span>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password1, new
                        {
                            @class = "form-control",
                            type = "password",
                            title = "Please enter your password",
                            placeholder = "******",
                            value = "",
-                           name = "password",
-                           id = "password"
+                           name = "password1",
+                           id = "password1"
                        })
                             <span class="help-block small">Your strong password</span>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password2, new
+                       {
+                           @class = "form-control",
+                           type = "password",
+                           title = "Please repeat your password",
+                           placeholder = "******",
+                           value = "",
+                           name = "password2",
+                           id = "password2"
+                       })
+                            <span class="help-block small">Please repeat your strong password</span>
                         </div>
 
 

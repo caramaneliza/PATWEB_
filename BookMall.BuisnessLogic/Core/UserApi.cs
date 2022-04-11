@@ -68,56 +68,58 @@ namespace BookMall.BuisnessLogic.Core
             }
         }
 
-        internal ULoginResp UserSignupAction(ULoginData data)
+        internal ULoginResp UserSignupAction(USignupData data)
         {
 
             UDbTable result;
             var validate = new EmailAddressAttribute();
-            if (validate.IsValid(data.Credential))
+            if (validate.IsValid(data.Email))
             {
-                var pass = LoginHelper.HashGen(data.Password);
+                if (data.Password1 == null)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "Enter a PASSWORD" };
+                }
+
+                if (data.Password1 != data.Password2)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "The Passwords don't match" };
+                }
+
                 using (var db = new UserContext())
                 {
-                    result = db.Users.FirstOrDefault(u => u.Email == data.Credential && u.Password == pass);
+                    result = db.Users.FirstOrDefault(u => u.Email == data.Email);
                 }
 
-                if (result == null)
+                if (result != null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "The Username or Password is Incorrect" };
+                    return new ULoginResp { Status = false, StatusMsg = "The Email is already taken" };
                 }
-
-                using (var todo = new UserContext())
+                
+                var pass = LoginHelper.HashGen(data.Password1);
+                result = new UDbTable
                 {
-                    result.LasIp = data.LoginIp;
-                    result.LastLogin = data.LoginDateTime;
-                    todo.Entry(result).State = EntityState.Modified;
-                    todo.SaveChanges();
+                    Username = data.Username,
+                    Email = data.Email,
+                    Password = pass,
+                    LasIp = data.LoginIp,
+                    FirstLogin = data.LoginDateTime,
+                    LastLogin = data.LoginDateTime
+
+                };
+
+                using (var db = new UserContext())
+                {
+                    db.Users.Add(result);
+                    db.SaveChanges();
                 }
 
                 return new ULoginResp { Status = true };
             }
             else
             {
-                var pass = LoginHelper.HashGen(data.Password);
-                using (var db = new UserContext())
-                {
-                    result = db.Users.FirstOrDefault(u => u.Username == data.Credential && u.Password == pass);
-                }
-
-                if (result == null)
-                {
-                    return new ULoginResp { Status = false, StatusMsg = "The Username or Password is Incorrect" };
-                }
-
-                using (var todo = new UserContext())
-                {
-                    result.LasIp = data.LoginIp;
-                    result.LastLogin = data.LoginDateTime;
-                    todo.Entry(result).State = EntityState.Modified;
-                    todo.SaveChanges();
-                }
-
-                return new ULoginResp { Status = true };
+               
+             return new ULoginResp { Status = false, StatusMsg = "Invalid email" };
+            
             }
         }
 
