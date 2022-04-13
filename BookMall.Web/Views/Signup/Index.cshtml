@@ -25,7 +25,6 @@
                            id = "username",
                            @class = "form-control"
                        })
-                            <span class="help-block small">Your unique username to app</span>
                         </div>
 
                         <div class="form-group">
@@ -39,10 +38,10 @@
                            id = "email",
                            @class = "form-control"
                        })
-                            <span class="help-block small">Your unique username to app</span>
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label" for="Password1">Password</label>
                             @Html.TextBoxFor(m => m.Password1, new
                        {
                            @class = "form-control",
@@ -52,11 +51,11 @@
                            value = "",
                            name = "password1",
                            id = "password1"
-                       })
-                            <span class="help-block small">Your strong password</span>
+                       }) 
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label" for="Password2">Repeat Password</label>
                             @Html.TextBoxFor(m => m.Password2, new
                        {
                            @class = "form-control",
@@ -66,16 +65,9 @@
                            value = "",
                            name = "password2",
                            id = "password2"
-                       })
-                            <span class="help-block small">Please repeat your strong password</span>
+                       }) 
                         </div>
 
-
-
-                        <div class="clearfix">
-                            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-                            <a href="/resetpassword" class="pull-right">Forgot Password?</a>
-                        </div>
 
                         <button class="btn btn-primary btn-lg btn-block" type="submit" style="width:100%">Signup</button>
                     }
@@ -86,7 +78,7 @@
 </div>
 
 
-<p class="text-center"><a href="/signup">Sign Up</a> </p>
+<p class="text-center"><a href="/login">Log In</a> </p>
 
 
 
