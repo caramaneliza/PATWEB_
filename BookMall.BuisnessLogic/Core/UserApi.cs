@@ -80,9 +80,24 @@ namespace BookMall.BuisnessLogic.Core
                     return new ULoginResp { Status = false, StatusMsg = "Enter a PASSWORD" };
                 }
 
+                if (data.Email == null)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "Consider using a email" };
+                }
+
                 if (data.Password1 != data.Password2)
                 {
                     return new ULoginResp { Status = false, StatusMsg = "The Passwords don't match" };
+                }
+
+                if (data.Password1.Length < 8)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "Password min 8 characters" };
+                }
+
+                if (data.Username.Length < 5)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "Username min 5 characters" };
                 }
 
                 using (var db = new UserContext())
@@ -93,6 +108,15 @@ namespace BookMall.BuisnessLogic.Core
                 if (result != null)
                 {
                     return new ULoginResp { Status = false, StatusMsg = "The Email is already taken" };
+                }
+
+                using (var db = new UserContext())
+                {
+                    result = db.Users.FirstOrDefault(u => u.Username == data.Username);
+                }
+                if (result != null)
+                {
+                    return new ULoginResp { Status = false, StatusMsg = "please use a unique username" };
                 }
                 
                 var pass = LoginHelper.HashGen(data.Password1);
