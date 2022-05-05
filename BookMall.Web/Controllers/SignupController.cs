@@ -51,8 +51,9 @@ namespace BookMall.Web.Controllers
                         LoginIp = Request.UserHostAddress,
                         LoginDateTime = DateTime.Now
                     };
-                    var cookie = _session.GenUserCookie(data0);
-                    //Add COOKIE
+
+                    HttpCookie cookie = _session.GenCookie(data.Email);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                     return RedirectToAction("Index", "Home");
                 }
                 else

@@ -7,31 +7,38 @@ using System.Data.SqlClient;
 using BookMall.Domain.Entities.User;
 using BookMall.BuisnessLogic.DBModel;
 using BookMall.Web.Models;
+using BookMall.Domain.Enums;
 
 namespace BookMall.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home
         public ActionResult Index()
         {
-            //UDbTable q = new UDbTable();
-            //q.Username = "catalin";
-            //q.Password = "0f5624ce496375ad39d41440e4d92a35"; //catalinhimself + bookmall2022
-            //q.Email = "catalinhimself@gmail.com";
-            //q.LasIp = "127.0.0.1";
-            //q.LastLogin = DateTime.Now;
-            //
-            //using (var db = new UserContext())
-            //{
-            //    db.Users.Add(q);
-            //    db.SaveChanges();
-            //}
-            //
-            UserData u = new UserData();
-            u.Username = "catalin";
+           
+            //UserData u = new UserData();
+            //u.Username = "catalin";
 
-            return View(u);
+            //return View(u);
+
+            SessionStatus();
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+            {
+                var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
+                UserProfile up = new UserProfile
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    ProfileUrl = user.Level == URole.Admin ? "/Admin" : "/profile"
+                };
+                return View(up);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

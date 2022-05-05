@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using BookMall.BuisnessLogic.Core;
 using BookMall.BuisnessLogic.Interfaces;
 using BookMall.Domain.Entities.User;
@@ -27,6 +28,14 @@ namespace BookMall.BuisnessLogic
             var cookie = session.GenerateCookieBase(data.Credential);
 
             return cookie;
+        }
+        public HttpCookie GenCookie(string loginCredential)
+        {
+            return Cookie(loginCredential);
+        }
+        public UProfileData GetUserByCookie(string apiCookieValue)
+        {
+            return UserCookie(apiCookieValue);
         }
     }
 }

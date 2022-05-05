@@ -42,8 +42,9 @@ namespace BookMall.Web.Controllers
                 var userLogin = _session.UserLogin(data);
                 if (userLogin.Status)
                 {
-                    var cookie = _session.GenUserCookie(data);
-                    //Add COOKIE
+
+                    HttpCookie cookie = _session.GenCookie(data.Credential);
+                    ControllerContext.HttpContext.Response.Cookies.Add(cookie);
                     return RedirectToAction("Index", "Home");
                 }
                 else

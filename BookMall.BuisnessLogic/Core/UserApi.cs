@@ -11,7 +11,6 @@ using System.Data.Entity;
 using BookMall.BuisnessLogic.DBModel;
 using BookMall.Helpers;
 using System.Web;
-using BookMall.Domain.Entities.User;
 
 namespace BookMall.BuisnessLogic.Core
 {
@@ -151,7 +150,7 @@ namespace BookMall.BuisnessLogic.Core
 
         internal HttpCookie Cookie(string loginCredential)
         {
-            var apiCookie = new HttpCookie("tsud")
+            var apiCookie = new HttpCookie("bm_token")
             {
                 Value = CookieGenerator.Create(loginCredential)
             };
