@@ -44,9 +44,11 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Product\ProductData.cs" />
+    <Compile Include="Entities\User\SessionsDbTable.cs" />
     <Compile Include="Entities\User\UDbTable.cs" />
     <Compile Include="Entities\User\ULoginData.cs" />
     <Compile Include="Entities\User\ULoginResp.cs" />
+    <Compile Include="Entities\User\UProfileData.cs" />
     <Compile Include="Entities\User\USignupData.cs" />
     <Compile Include="Enums\URole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

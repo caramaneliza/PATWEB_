@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using BookMall.Domain.Entities.User;
 using BookMall.Domain.Entities.Product;
+using eUseControl.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity; 
 using BookMall.BuisnessLogic.DBModel;
 using BookMall.Helpers;
-
+using System.Web;
+using BookMall.Domain.Entities.User;
 
 namespace BookMall.BuisnessLogic.Core
 {
@@ -75,14 +77,9 @@ namespace BookMall.BuisnessLogic.Core
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Email))
             {
-                if (data.Password1 == null)
+                if (data.Password1 == null || data.Email == null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "Enter a PASSWORD" };
-                }
-
-                if (data.Email == null)
-                {
-                    return new ULoginResp { Status = false, StatusMsg = "Consider using a email" };
+                    return new ULoginResp { Status = false, StatusMsg = "Complet all fields" };
                 }
 
                 if (data.Password1 != data.Password2)
@@ -141,7 +138,7 @@ namespace BookMall.BuisnessLogic.Core
             }
             else
             {
-               
+               //empty email is valid for some reason 
              return new ULoginResp { Status = false, StatusMsg = "Invalid email" };
             
             }
@@ -151,7 +148,86 @@ namespace BookMall.BuisnessLogic.Core
         {
             return new List<ProductData>();
         }
-         
+
+        internal HttpCookie Cookie(string loginCredential)
+        {
+            var apiCookie = new HttpCookie("tsud")
+            {
+                Value = CookieGenerator.Create(loginCredential)
+            };
+
+            using (var db = new UserContext())
+            {
+                SessionsDbTable curent;
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(loginCredential))
+                {
+                    curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
+                }
+                else
+                {
+                    curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
+                }
+
+                if (curent != null)
+                {
+                    curent.CookieString = apiCookie.Value;
+                    curent.ExpireTime = DateTime.Now.AddMinutes(60);
+                    using (var up = new UserContext())
+                    {
+                        up.Entry(curent).State = EntityState.Modified;
+                        up.SaveChanges();
+                    }
+                }
+                else
+                {
+                    db.Sessions.Add(new SessionsDbTable
+                    {
+                        UserEmail = loginCredential,
+                        CookieString = apiCookie.Value,
+                        ExpireTime = DateTime.Now.AddMinutes(60)
+                    });
+                    db.SaveChanges();
+                }
+            }
+            return apiCookie;
+        }
+        internal UProfileData UserCookie(string cookie)
+        {
+            SessionsDbTable session;
+            UDbTable curentUser;
+
+            using (var db = new UserContext())
+            {
+                session = db.Sessions.FirstOrDefault(s => s.CookieString == cookie && s.ExpireTime > DateTime.Now);
+            }
+
+            if (session == null) return null;
+            using (var db = new UserContext())
+            {
+                var validate = new EmailAddressAttribute();
+                if (validate.IsValid(session.UserEmail))
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.UserEmail);
+                }
+                else
+                {
+                    curentUser = db.Users.FirstOrDefault(u => u.Email == session.UserEmail);
+                }
+            }
+
+            if (curentUser == null) return null;
+            var userprofile = new UProfileData
+            {
+                Id = curentUser.Id,
+                Username = curentUser.Username,
+                Email = curentUser.Email,
+                Level = curentUser.Level
+            };
+
+            return userprofile;
+        }
+
     }
  
 }
