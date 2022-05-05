@@ -10,7 +10,7 @@ using BookMall.Web.Models;
 
 namespace BookMall.Web.Controllers
 {
-    public class SignupController : Controller
+    public class SignupController : BaseController
     {
         private readonly ISession _session;
         public SignupController()

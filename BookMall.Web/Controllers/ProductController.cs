@@ -8,7 +8,7 @@ using BookMall.BuisnessLogic.Interfaces;
 
 namespace BookMall.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private readonly IProduct _product;
         public ProductController()

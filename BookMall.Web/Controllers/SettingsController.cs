@@ -7,7 +7,7 @@ using BookMall.Web.Models;
 
 namespace BookMall.Web.Controllers
 {
-    public class SettingsController : Controller
+    public class SettingsController : BaseController
     {
         // GET: Settings
 

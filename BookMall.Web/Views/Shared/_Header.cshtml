@@ -19,13 +19,26 @@
             <div class="me-auto"></div>
             <ul class="navbar-nav my-2 my-lg-0">
 
-                <li class="">
-                    <a class="nav-link" href="/login">
-                        <span class="sr-only">
-                            Log In
-                        </span>
-                    </a>
-                </li>
+                @if (System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+                {
+                    <li class="">
+                        <a class="nav-link active" href="/logout">
+                            <span class="sr-only">
+                                @ViewBag.Username
+                            </span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="">
+                        <a class="nav-link" href="/login">
+                            <span class="sr-only">
+                                Log In
+                            </span>
+                        </a>
+                    </li>
+}
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

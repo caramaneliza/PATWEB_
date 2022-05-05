@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Product\PDbTable.cs" />
     <Compile Include="Entities\Product\ProductData.cs" />
     <Compile Include="Entities\User\SessionsDbTable.cs" />
     <Compile Include="Entities\User\UDbTable.cs" />

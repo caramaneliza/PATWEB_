@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BookMall.Web.Controllers
 {
-    public class LibraryController : Controller
+    public class LibraryController : BaseController
     {
         // GET: Library
         public ActionResult Index()

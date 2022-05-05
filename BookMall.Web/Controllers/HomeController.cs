@@ -17,28 +17,26 @@ namespace BookMall.Web.Controllers
         public ActionResult Index()
         {
            
-            //UserData u = new UserData();
-            //u.Username = "catalin";
-
-            //return View(u);
-
             SessionStatus();
+            UserProfile user_profile;
             if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
             {
                 var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
-                UserProfile up = new UserProfile
+                user_profile = new UserProfile
                 {
                     Id = user.Id,
                     Username = user.Username,
                     Email = user.Email,
                     ProfileUrl = user.Level == URole.Admin ? "/Admin" : "/profile"
                 };
-                return View(up);
+                ViewBag.Username = user.Username;
             }
             else
             {
-                return View();
+                user_profile = new UserProfile { };
+                ViewBag.Username = "Guest";
             }
+            return View(user_profile);
         }
     }
 }

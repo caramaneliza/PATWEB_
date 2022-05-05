@@ -155,19 +155,21 @@ namespace BookMall.BuisnessLogic.Core
                 Value = CookieGenerator.Create(loginCredential)
             };
 
+            //find email if username used
+            UDbTable result;
             using (var db = new UserContext())
             {
-                SessionsDbTable curent;
-                var validate = new EmailAddressAttribute();
-                if (validate.IsValid(loginCredential))
-                {
-                    curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
-                }
-                else
-                {
-                    curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
-                }
+                    result = db.Users.FirstOrDefault(u => u.Email == loginCredential || u.Username == loginCredential);
+             }
 
+            loginCredential = result.Email;
+
+
+                using (var db = new UserContext())
+            {
+                SessionsDbTable curent;
+                curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
+            
                 if (curent != null)
                 {
                     curent.CookieString = apiCookie.Value;
