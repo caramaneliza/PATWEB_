@@ -13,7 +13,7 @@ namespace BookMall.Web.Controllers
     {
         // GET: Profile
 
-        User user = new User { 
+        UserMinimal user = new UserMinimal { 
             Email = "catalinsfake@gmail.com",
             FirstName = "Catain",
             LastName = "Fake",

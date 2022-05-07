@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BookMall.BuisnessLogic;
 using BookMall.BuisnessLogic.Interfaces;
 using BookMall.Domain.Entities.User;
+using BookMall.Domain.Enums;
 using BookMall.Web.Models;
 
 namespace BookMall.Web.Controllers
@@ -61,6 +62,29 @@ namespace BookMall.Web.Controllers
             else
             {
                 ViewBag.Username = "Guest";
+            }
+        }
+
+        public void GetUserLevel()
+        {
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+            {
+                var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
+                switch (user.Level)
+                {
+                    case URole.Admin:
+                        ViewBag.UserLevel = "Admin";
+                        break;
+                    case URole.Moderator:
+                        ViewBag.UserLevel = "Moderator";
+                        break;
+                    case URole.User:
+                        ViewBag.UserLevel = "User";
+                        break;
+                    default:
+                        break;
+                }
+
             }
         }
     }

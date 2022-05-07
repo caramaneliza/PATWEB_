@@ -12,7 +12,7 @@ namespace BookMall.Web.Controllers
     {
         // GET: Settings
 
-        User user = new User { 
+        UserMinimal user = new UserMinimal { 
             Email = "catalinsfake@gmail.com",
             FirstName = "Catain",
             LastName = "Fake",
@@ -24,6 +24,7 @@ namespace BookMall.Web.Controllers
         {
             SessionStatus();
             GetUsername();
+            GetUserLevel();
             return View(user);
         }
     }

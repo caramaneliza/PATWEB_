@@ -328,7 +328,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserMinimal.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -385,7 +385,7 @@
     <Content Include="Views\Profile\index.cshtml" />
     <Content Include="Views\Library\index.cshtml" />
     <Content Include="Views\Cart\index.cshtml" />
-    <Content Include="Views\Book\index.cshtml" />
+    <Content Include="Views\Book\Display.cshtml" />
     <Content Include="Views\Shared\_LayoutItems.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Signup\Index.cshtml" />
