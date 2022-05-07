@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookMall.Web.App_Start;
+using BookMall.Web.Filters;
 
 namespace BookMall.Web.Controllers
 {
@@ -11,7 +11,7 @@ namespace BookMall.Web.Controllers
     {
         // GET: Cart
 
-        //[UserMod]
+        [UserMod]
         public ActionResult Index()
         {
             SessionStatus();

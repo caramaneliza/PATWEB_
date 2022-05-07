@@ -13,7 +13,7 @@ namespace BookMall.Web.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly ISession _session;
+        public readonly ISession _session;
         // GET: Base
         public BaseController()
         {
@@ -88,22 +88,25 @@ namespace BookMall.Web.Controllers
             }
         }
 
-        public UserMinimal GetUserMinimal()
+        public UserSettings GetUserMinimal()
         {
             GetUserLevel();
             var apiCookie = Request.Cookies["bm_token"];
             if (apiCookie != null)
             {
                 var uProfile = _session.GetUserByCookie(apiCookie.Value);
-                return new UserMinimal
+                return new UserSettings
                 {
                     Id = uProfile.Id,
                     Email = uProfile.Email,
                     Username = uProfile.Username,
                     Privilege = ViewBag.UserLevel,
+                    CurrentPassword = "",
+                    Password1 = "",
+                    Password2 = "",
                 };
             }
-            return new UserMinimal();
+            return new UserSettings();
 
         }
     }

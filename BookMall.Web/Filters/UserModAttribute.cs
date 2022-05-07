@@ -5,6 +5,7 @@ using BookMall.BuisnessLogic;
 using System.Web.Routing;
 using BookMall.Domain.Enums;
 using BookMall.Domain.Entities.User;
+using System;
 
 namespace BookMall.Web.Filters
 {
@@ -19,10 +20,8 @@ namespace BookMall.Web.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var adminSession = (UProfileData)HttpContext.Current?.Session["__SessionObject"];
-
             if (adminSession != null)
             {
-
                 var cookie = HttpContext.Current.Request.Cookies["bm_token"];
                 if (cookie != null)
                 {
@@ -30,19 +29,15 @@ namespace BookMall.Web.Filters
                     if (profile != null && (profile.Level == URole.User || profile.Level == URole.Moderator || profile.Level == URole.Admin))
                     {
                         HttpContext.Current.Session.Add("__SessionObject", profile);
+                        return;
                     }
-                    else
-                    {
-                        filterContext.Result = new RedirectToRouteResult(
-                            new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
-                    }
-                }
-                else
-                {
-                    filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
                 }
             }
+
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
+
+  
         }
     }
 }

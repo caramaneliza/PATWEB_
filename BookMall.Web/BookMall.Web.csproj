@@ -328,10 +328,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\UserMinimal.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Models\UserSignup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

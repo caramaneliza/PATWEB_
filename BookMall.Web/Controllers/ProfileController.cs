@@ -12,21 +12,13 @@ namespace BookMall.Web.Controllers
     public class ProfileController : BaseController
     {
         // GET: Profile
-
-        UserMinimal user = new UserMinimal
-        {
-            Email = "catalinsfake@gmail.com",
-            Username = "Catain",
-            Privilege = "God"
-        };
-
         [UserMod]
         public ActionResult Index()
         {
             SessionStatus();
             GetUsername();
             GetUserLevel();
-            return View(user);
+            return View(GetUserMinimal());
         }
     }
 }

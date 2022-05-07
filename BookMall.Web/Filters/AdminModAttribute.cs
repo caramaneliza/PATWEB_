@@ -30,19 +30,11 @@ namespace BookMall.Web.Filters
                     if (profile != null && profile.Level == URole.Admin)
                     {
                         HttpContext.Current.Session.Add("__SessionObject", profile);
+                        return;
                     }
-                    else
-                    {
-                        filterContext.Result = new RedirectToRouteResult(
-                            new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
-                    }
-                }
-                else
-                {
-                    filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
-                }
             }
+            filterContext.Result = new RedirectToRouteResult(
+                       new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
         }
     }
 }
