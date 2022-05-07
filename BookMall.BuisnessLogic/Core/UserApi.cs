@@ -7,7 +7,7 @@ using BookMall.Domain.Entities.User;
 using BookMall.Domain.Entities.Product;
 using eUseControl.Helpers;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity; 
+using System.Data.Entity;
 using BookMall.BuisnessLogic.DBModel;
 using BookMall.Helpers;
 using System.Web;
@@ -114,7 +114,7 @@ namespace BookMall.BuisnessLogic.Core
                 {
                     return new PostResponse { Status = false, StatusMsg = "please use a unique username" };
                 }
-                
+
                 var pass = LoginHelper.HashGen(data.Password1);
                 result = new UDbTable
                 {
@@ -137,26 +137,106 @@ namespace BookMall.BuisnessLogic.Core
             }
             else
             {
-               //empty email is valid for some reason 
-             return new PostResponse { Status = false, StatusMsg = "Invalid email" };
-            
+                //empty email is valid for some reason 
+                return new PostResponse { Status = false, StatusMsg = "Invalid email" };
+
             }
         }
         internal PostResponse UserChangeDataActioin(USettingsData data)
         {
             UDbTable user;
+            UDbTable result;
             var validate = new EmailAddressAttribute();
             if (validate.IsValid(data.Email))
             {
-                var pass = LoginHelper.HashGen(data.CurrentPassword);
                 using (var db = new UserContext())
                 {
                     user = db.Users.FirstOrDefault(u => u.Id == data.Id);
                 }
-                if (pass != user.Password)
+
+                //change username
+                if (data.Username != null && data.Username != user.Username)
                 {
-                    return new PostResponse { Status = false, StatusMsg = "Wrong password" };
+                    if (data.Username.Length > 4)
+                    {
+                        using (var db = new UserContext())
+                        {
+                            result = db.Users.FirstOrDefault(u => u.Username == data.Username);
+                        }
+                        if (result == null)
+                        {
+                            using (var todo = new UserContext())
+                            {
+                                user.Username = data.Username;
+                                todo.Entry(user).State = EntityState.Modified;
+                                todo.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            return new PostResponse { Status = false, StatusMsg = "Username is already taken" };
+                        }
+                    }
+                    else
+                    {
+                        return new PostResponse { Status = false, StatusMsg = "Username min 8 characters" };
+                    }
                 }
+
+                //change email
+                if (data.Email != null && data.Email != user.Email)
+                {
+                    using (var db = new UserContext())
+                    {
+                        result = db.Users.FirstOrDefault(u => u.Email == data.Email);
+                    }
+                    if (result == null)
+                    {
+                        using (var todo = new UserContext())
+                        {
+                            user.Email = data.Email;
+                            todo.Entry(user).State = EntityState.Modified;
+                            todo.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        return new PostResponse { Status = false, StatusMsg = "Email is already taken" };
+                    }
+                }
+
+                //change password
+                var cpass = LoginHelper.HashGen(data.CurrentPassword);
+                if (cpass == user.Password)
+                {
+                    if (data.Password1 != null && data.Password2 != null && data.Password1.Length > 7)
+                    {
+                        if (data.Password1 == data.Password2)
+                        {
+                            var pass = LoginHelper.HashGen(data.Password1);
+                            using (var todo = new UserContext())
+                            {
+                                user.Password = pass;
+                                todo.Entry(user).State = EntityState.Modified;
+                                todo.SaveChanges();
+                            }
+                        }
+                        else
+                        {
+                            return new PostResponse { Status = false, StatusMsg = "The Passwords don't match" };
+                        }
+                    }
+                    else
+                    {
+                        return new PostResponse { Status = false, StatusMsg = "Password min 8 characters" };
+                    }
+
+                }
+                else if (data.CurrentPassword != null)
+                {
+                    return new PostResponse { Status = false, StatusMsg = "Wrong current password" };
+                }
+
 
                 return new PostResponse { Status = true };
             }
@@ -167,6 +247,7 @@ namespace BookMall.BuisnessLogic.Core
 
             }
         }
+
         internal List<ProductData> GetProductListByUser()
         {
             return new List<ProductData>();
@@ -183,17 +264,17 @@ namespace BookMall.BuisnessLogic.Core
             UDbTable result;
             using (var db = new UserContext())
             {
-                    result = db.Users.FirstOrDefault(u => u.Email == loginCredential || u.Username == loginCredential);
-             }
+                result = db.Users.FirstOrDefault(u => u.Email == loginCredential || u.Username == loginCredential);
+            }
 
             loginCredential = result.Email;
 
 
-                using (var db = new UserContext())
+            using (var db = new UserContext())
             {
                 SessionsDbTable curent;
                 curent = (from e in db.Sessions where e.UserEmail == loginCredential select e).FirstOrDefault();
-            
+
                 if (curent != null)
                 {
                     curent.CookieString = apiCookie.Value;
@@ -254,5 +335,5 @@ namespace BookMall.BuisnessLogic.Core
         }
 
     }
- 
+
 }

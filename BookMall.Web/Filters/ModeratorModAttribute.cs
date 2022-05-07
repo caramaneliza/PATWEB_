@@ -32,6 +32,7 @@ namespace BookMall.Web.Filters
                         HttpContext.Current.Session.Add("__SessionObject", profile);
                         return;
                     }
+                }
             }
             filterContext.Result = new RedirectToRouteResult(
                         new RouteValueDictionary(new { controller = "Error", action = "Error404" }));
