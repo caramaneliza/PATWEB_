@@ -10,7 +10,7 @@ namespace BookMall.Web.Controllers
     public class LibraryController : BaseController
     {
         // GET: Library
-        [AdminMod]
+        //[AdminMod]
         public ActionResult Index()
         {
                 SessionStatus();

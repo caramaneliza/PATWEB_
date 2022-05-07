@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using BookMall.BuisnessLogic.Interfaces;
 using BookMall.BuisnessLogic;
@@ -9,7 +6,7 @@ using System.Web.Routing;
 using BookMall.Domain.Enums;
 using BookMall.Domain.Entities.User;
 
-namespace BookMall.Web.App_Start
+namespace BookMall.Web.Filters
 {
     public class UserModAttribute : ActionFilterAttribute
     {
@@ -22,13 +19,15 @@ namespace BookMall.Web.App_Start
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var adminSession = (UProfileData)HttpContext.Current?.Session["__SessionObject"];
-            if (adminSession == null)
+
+            if (adminSession != null)
             {
+
                 var cookie = HttpContext.Current.Request.Cookies["bm_token"];
                 if (cookie != null)
                 {
                     var profile = _session.GetUserByCookie(cookie.Value);
-                    if (profile != null && profile.Level == URole.User)
+                    if (profile != null && (profile.Level == URole.User || profile.Level == URole.Moderator || profile.Level == URole.Admin))
                     {
                         HttpContext.Current.Session.Add("__SessionObject", profile);
                     }

@@ -308,12 +308,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AdminFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\CustomAccessFilter.cs" />
-    <Compile Include="App_Start\ModeratorFilter.cs" />
+    <Compile Include="Filters\AdminModAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\UserFilter.cs" />
+    <Compile Include="Filters\ModeratorModAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -325,6 +323,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\SignupController.cs" />
+    <Compile Include="Filters\UserModAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

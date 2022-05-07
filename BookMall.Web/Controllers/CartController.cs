@@ -11,7 +11,7 @@ namespace BookMall.Web.Controllers
     {
         // GET: Cart
 
-        [UserMod]
+        //[UserMod]
         public ActionResult Index()
         {
             SessionStatus();
