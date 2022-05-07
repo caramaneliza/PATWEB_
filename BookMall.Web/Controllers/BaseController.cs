@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BookMall.BuisnessLogic;
 using BookMall.BuisnessLogic.Interfaces;
+using BookMall.Domain.Entities.User;
+using BookMall.Web.Models;
 
 namespace BookMall.Web.Controllers
 {
@@ -46,6 +48,19 @@ namespace BookMall.Web.Controllers
             else
             {
                 System.Web.HttpContext.Current.Session["LoginStatus"] = "logout";
+            }
+        }
+
+        public void GetUsername()
+        {
+            if ((string)System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+            {
+                var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
+                ViewBag.Username = user.Username;
+            }
+            else
+            {
+                ViewBag.Username = "Guest";
             }
         }
     }

@@ -22,9 +22,9 @@
                 @if (System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
                 {
                     <li class="">
-                        <a class="nav-link active" href="/logout">
+                        <a class="nav-link" href="/logout">
                             <span class="sr-only">
-                                @ViewBag.Username
+                                Log Out
                             </span>
                         </a>
                     </li>
@@ -38,37 +38,39 @@
                             </span>
                         </a>
                     </li>
-}
+                }
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profile
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <h6 class="dropdown-header">
-                            Manage Profile
-                        </h6>
-
-                        <a class="dropdown-item" href="/profile">
-                            Personal Center
+                @if (System.Web.HttpContext.Current.Session["LoginStatus"] == "login")
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-display="static" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.Username
                         </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <h6 class="dropdown-header">
+                                Manage Profile
+                            </h6>
 
-                        <a class="dropdown-item" href="/settings">
-                            Settings
-                        </a>
+                            <a class="dropdown-item" href="/profile">
+                                Personal Center
+                            </a>
 
-                        <a class="dropdown-item" href="/cart">
-                            Cart
-                        </a>
+                            <a class="dropdown-item" href="/settings">
+                                Settings
+                            </a>
 
-                        <a class="dropdown-item" href="/library">
-                            My Library
-                        </a>
+                            <a class="dropdown-item" href="/cart">
+                                Cart
+                            </a>
 
-                    </div>
-                </li>
+                            <a class="dropdown-item" href="/library">
+                                My Library
+                            </a>
 
-            </ul>
+                        </div>
+                    </li>
+                }
+                </ul>
         </div>
     </div>
 </nav>
