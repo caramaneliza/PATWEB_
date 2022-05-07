@@ -32,13 +32,12 @@
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
-                                                @Model.FirstName
-                                                @Model.LastName
+                                                @ViewBag.Username
                                             </h4>
                                         </div>
                                         <div class="text-center text-sm-right">
                                             <span class="badge bg-primary">
-                                                @Model.Privilege
+                                                @ViewBag.UserLevel
                                             </span>
                                             <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
                                         </div>
@@ -57,7 +56,7 @@
                                                         <div class="col">
                                                             <div class="form-group">
                                                                 <label>Username</label>
-                                                                <input class="form-control" type="text" name="name" placeholder="@Model.FirstName" value="@Model.FirstName">
+                                                                <input class="form-control" type="text" name="name" placeholder="username" value="@Model.Username">
                                                             </div>
                                                         </div>
                                                     </div>

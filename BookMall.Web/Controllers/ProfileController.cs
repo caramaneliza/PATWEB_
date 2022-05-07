@@ -13,18 +13,19 @@ namespace BookMall.Web.Controllers
     {
         // GET: Profile
 
-        UserMinimal user = new UserMinimal { 
+        UserMinimal user = new UserMinimal
+        {
             Email = "catalinsfake@gmail.com",
-            FirstName = "Catain",
-            LastName = "Fake",
-            PasswordHash = "sakdjf;sadfk2134j",
-            Privilege = "God" };
+            Username = "Catain",
+            Privilege = "God"
+        };
 
         [UserMod]
         public ActionResult Index()
         {
             SessionStatus();
             GetUsername();
+            GetUserLevel();
             return View(user);
         }
     }

@@ -87,5 +87,24 @@ namespace BookMall.Web.Controllers
 
             }
         }
+
+        public UserMinimal GetUserMinimal()
+        {
+            GetUserLevel();
+            var apiCookie = Request.Cookies["bm_token"];
+            if (apiCookie != null)
+            {
+                var uProfile = _session.GetUserByCookie(apiCookie.Value);
+                return new UserMinimal
+                {
+                    Id = uProfile.Id,
+                    Email = uProfile.Email,
+                    Username = uProfile.Username,
+                    Privilege = ViewBag.UserLevel,
+                };
+            }
+            return new UserMinimal();
+
+        }
     }
 }

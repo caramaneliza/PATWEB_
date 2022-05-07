@@ -16,7 +16,7 @@ namespace BookMall.BuisnessLogic.Core
 {
     public class UserApi
     {
-        internal ULoginResp UserLoginAction(ULoginData data)
+        internal PostResponse UserLoginAction(ULoginData data)
         {
 
             UDbTable result;
@@ -31,7 +31,7 @@ namespace BookMall.BuisnessLogic.Core
 
                 if (result == null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "The Username or Password is Incorrect" };
+                    return new PostResponse { Status = false, StatusMsg = "The Username or Password is Incorrect" };
                 }
 
                 using (var todo = new UserContext())
@@ -42,7 +42,7 @@ namespace BookMall.BuisnessLogic.Core
                     todo.SaveChanges();
                 }
 
-                return new ULoginResp { Status = true };
+                return new PostResponse { Status = true };
             }
             else
             {
@@ -54,7 +54,7 @@ namespace BookMall.BuisnessLogic.Core
 
                 if (result == null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "The Username or Password is Incorrect" };
+                    return new PostResponse { Status = false, StatusMsg = "The Username or Password is Incorrect" };
                 }
 
                 using (var todo = new UserContext())
@@ -65,11 +65,11 @@ namespace BookMall.BuisnessLogic.Core
                     todo.SaveChanges();
                 }
 
-                return new ULoginResp { Status = true };
+                return new PostResponse { Status = true };
             }
         }
 
-        internal ULoginResp UserSignupAction(USignupData data)
+        internal PostResponse UserSignupAction(USignupData data)
         {
 
             UDbTable result;
@@ -78,22 +78,22 @@ namespace BookMall.BuisnessLogic.Core
             {
                 if (data.Password1 == null || data.Email == null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "Complet all fields" };
+                    return new PostResponse { Status = false, StatusMsg = "Complet all fields" };
                 }
 
                 if (data.Password1 != data.Password2)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "The Passwords don't match" };
+                    return new PostResponse { Status = false, StatusMsg = "The Passwords don't match" };
                 }
 
                 if (data.Password1.Length < 8)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "Password min 8 characters" };
+                    return new PostResponse { Status = false, StatusMsg = "Password min 8 characters" };
                 }
 
                 if (data.Username.Length < 5)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "Username min 5 characters" };
+                    return new PostResponse { Status = false, StatusMsg = "Username min 5 characters" };
                 }
 
                 using (var db = new UserContext())
@@ -103,7 +103,7 @@ namespace BookMall.BuisnessLogic.Core
 
                 if (result != null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "The Email is already taken" };
+                    return new PostResponse { Status = false, StatusMsg = "The Email is already taken" };
                 }
 
                 using (var db = new UserContext())
@@ -112,7 +112,7 @@ namespace BookMall.BuisnessLogic.Core
                 }
                 if (result != null)
                 {
-                    return new ULoginResp { Status = false, StatusMsg = "please use a unique username" };
+                    return new PostResponse { Status = false, StatusMsg = "please use a unique username" };
                 }
                 
                 var pass = LoginHelper.HashGen(data.Password1);
@@ -133,16 +133,40 @@ namespace BookMall.BuisnessLogic.Core
                     db.SaveChanges();
                 }
 
-                return new ULoginResp { Status = true };
+                return new PostResponse { Status = true };
             }
             else
             {
                //empty email is valid for some reason 
-             return new ULoginResp { Status = false, StatusMsg = "Invalid email" };
+             return new PostResponse { Status = false, StatusMsg = "Invalid email" };
             
             }
         }
+        internal PostResponse UserChangeDataActioin(USettingsData data)
+        {
+            UDbTable user;
+            var validate = new EmailAddressAttribute();
+            if (validate.IsValid(data.Email))
+            {
+                var pass = LoginHelper.HashGen(data.CurrentPassword);
+                using (var db = new UserContext())
+                {
+                    user = db.Users.FirstOrDefault(u => u.Id == data.Id);
+                }
+                if (pass != user.Password)
+                {
+                    return new PostResponse { Status = false, StatusMsg = "Wrong password" };
+                }
 
+                return new PostResponse { Status = true };
+            }
+            else
+            {
+                //empty email is valid for some reason 
+                return new PostResponse { Status = false, StatusMsg = "Invalid email" };
+
+            }
+        }
         internal List<ProductData> GetProductListByUser()
         {
             return new List<ProductData>();

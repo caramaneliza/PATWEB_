@@ -13,14 +13,18 @@ namespace BookMall.BuisnessLogic
 {
     public class SessionBL : UserApi, ISession
     {
-        public ULoginResp UserLogin(ULoginData data)
+        public PostResponse UserLogin(ULoginData data)
         {
             //LOGIN
             return UserLoginAction(data);
         }
-        public ULoginResp UserSignup(USignupData data)
+        public PostResponse UserSignup(USignupData data)
         {
             return UserSignupAction(data);
+        }
+        public PostResponse UserChangeData(USettingsData data)
+        {
+            return UserChangeDataActioin(data);
         }
         public string GenUserCookie(ULoginData data)
         {

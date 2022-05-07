@@ -10,8 +10,9 @@ namespace BookMall.BuisnessLogic.Interfaces
 {
     public interface ISession
     {
-        ULoginResp UserLogin(ULoginData data);
-        ULoginResp UserSignup(USignupData data);
+        PostResponse UserLogin(ULoginData data);
+        PostResponse UserSignup(USignupData data);
+        PostResponse UserChangeData(USettingsData data);
         string GenUserCookie(ULoginData data);
         HttpCookie GenCookie(string loginCredential);
         UProfileData GetUserByCookie(string apiCookieValue);
