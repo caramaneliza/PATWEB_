@@ -1,0 +1,104 @@
+﻿@using System.Web.Optimization
+@model BookMall.Web.Models.Book
+
+
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+
+                    <h3 class="mb-5 text-center">Upload Book</h3>
+
+
+                    @Html.ValidationSummary(true)
+                    @using (Html.BeginForm("Create", "Book", FormMethod.Post,
+                                                   new
+                                                   {
+                                                       enctype = "multipart/form-data",
+                                                       target = "UploadTarget",
+                                                       @id = "CreateBookForm"
+                                                   }))
+                    //new { @id = "CreateBookForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Title, new { placeholder = "Book Title", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Author, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Author, new { placeholder = "Book Author", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Genre, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Genre, new { placeholder = "Book Genre", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                            @Html.TextAreaFor(m => m.Description, new { placeholder = "Book Description", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Price, new { placeholder = "Book Price", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ISBN, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ISBN, new { placeholder = "Book ISBN", @class = "form-control" })
+                        </div>
+                        <label for="file">Book file</label>
+                        <input type="file" name="file" class="form-control" />
+
+                        <br />
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="width:100%">Upload</button>
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/validation/js")
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#SettingsForm").validate({
+                rules: {
+                    Title: {
+                        required: true
+                    },
+                    CurentPassword: {
+                        required: false
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                },
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .append(error);
+                },
+                errorElement: "span"
+            });
+        });
+
+
+    </script>
+}
+

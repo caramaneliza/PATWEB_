@@ -84,7 +84,7 @@ namespace BookMall.Web.Controllers
                     default:
                         break;
                 }
-
+                ViewBag.FirstLogin = user.FirstLogin.ToString("dd MMMM yyyy");
             }
         }
 

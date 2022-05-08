@@ -16,6 +16,8 @@ namespace BookMall.Web.Controllers
         {
             SessionStatus();
             GetUsername();
+            GetUserLevel();
+
             return View();
         }
     }

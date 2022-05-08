@@ -1,5 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Web;
 using System.Web.Mvc;
+using BookMall.Web.Filters;
 using BookMall.Web.Models;
 
 namespace BookMall.Web.Controllers
@@ -11,9 +15,9 @@ namespace BookMall.Web.Controllers
         //[Route("book/{id?}")]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
-        public ActionResult Display(string id)
+        public ActionResult Display(int id)
         {
             SessionStatus();
             GetUsername();
@@ -36,17 +40,42 @@ namespace BookMall.Web.Controllers
 
             return View(book);
         }
-        public string Create(string id)
+
+        [ModeratorMod]
+        public ActionResult Create()
         {
-            return "Create " + id.ToString();
+            SessionStatus();
+            GetUsername();
+            GetUserLevel();
+
+            return View();
         }
-        public string Edit(string id)
+        [ModeratorMod]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(HttpPostedFileBase file, Book book)
         {
-            return "Edit " + id.ToString();
+            string fileName;
+            FileInfo fi = new FileInfo(file.FileName);
+            if (file != null && file.ContentLength > 0)
+            {
+                using (var md5 = MD5.Create()) {
+                    fileName = BitConverter.ToString(md5.ComputeHash(file.InputStream)).Replace("-", "");
+                    var path = Path.Combine(Server.MapPath("~/UserFiles/Books"), fileName + fi.Extension);
+                    file.SaveAs(path);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
         public string Delete(string id)
         {
-            return "Delete " + id.ToString();
+            return "Book " + id.ToString() + " was deleted successfully";
         }
     }
 }

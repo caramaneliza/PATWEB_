@@ -1,4 +1,4 @@
-﻿@model BookMall.Web.Models.UserMinimal
+﻿@model BookMall.Web.Models.UserSettings
 
 <div class="container pt-4 pb-5 mb-5">
     <div class="row flex-lg-nowrap">
@@ -39,7 +39,7 @@
                                             <span class="badge bg-primary">
                                                 @ViewBag.UserLevel
                                             </span>
-                                            <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                                            <div class="text-muted"><small>Joined @ViewBag.FirstLogin</small></div>
                                         </div>
                                     </div>
                                 </div>

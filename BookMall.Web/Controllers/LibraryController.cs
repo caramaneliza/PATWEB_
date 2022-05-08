@@ -13,9 +13,11 @@ namespace BookMall.Web.Controllers
         [UserMod]
         public ActionResult Index()
         {
-                SessionStatus();
-                GetUsername();
-                return View();
+            SessionStatus();
+            GetUsername();
+            GetUserLevel();
+
+            return View();
         }
     }
 }

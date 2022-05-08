@@ -328,6 +328,7 @@ namespace BookMall.BuisnessLogic.Core
                 Id = curentUser.Id,
                 Username = curentUser.Username,
                 Email = curentUser.Email,
+                FirstLogin = curentUser.FirstLogin,
                 Level = curentUser.Level
             };
 

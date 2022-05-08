@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BookMall.Web.Filters;
 
 namespace BookMall.Web.Controllers
 {
     public class LogoutController : Controller
     {
         // GET: Logout
+        [UserMod]
         public ActionResult Index()
         {
 
