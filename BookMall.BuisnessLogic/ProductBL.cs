@@ -7,19 +7,25 @@ using BookMall.BuisnessLogic.Core;
 using BookMall.BuisnessLogic.Interfaces;
 using BookMall.Helpers.Session;
 using BookMall.Domain.Entities.Product;
+using BookMall.Domain.Entities.User;
 
 namespace BookMall.BuisnessLogic
 {
-    public class ProductBL: UserApi, IProduct
+    public class ProductBL: ProductApi, IProduct
     {
-        public List<ProductData> GetProductList()
+        public PostResponse CreateProduct(PDbTable product)
         {
-            return GetProductListByUser();
+            return CreateProductAction(product);
         }
+
+        //public List<ProductData> GetProductList()
+        //{
+        //    return GetProductListByUser();
+        //}
         
-        public ProductData GetSingleProduct(int id)
-        {
-            return new ProductData();
-        }
+        //public ProductData GetSingleProduct(int id)
+        //{
+        //    return new ProductData();
+        //}
     }
 }

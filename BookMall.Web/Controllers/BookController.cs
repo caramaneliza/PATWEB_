@@ -3,13 +3,26 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using BookMall.BuisnessLogic;
+using BookMall.BuisnessLogic.Interfaces;
+using BookMall.Domain.Entities.Product;
+using BookMall.Domain.Entities.User;
 using BookMall.Web.Filters;
 using BookMall.Web.Models;
+using System.Collections.Generic;
+using Aspose.Pdf;
+using Aspose.Pdf.Devices;
 
 namespace BookMall.Web.Controllers
 {
     public class BookController : BaseController
     {
+        private readonly IProduct _product;
+        public BookController()
+        {
+            var bl = new BuissnesLogic();
+            _product = bl.GetProductBL();
+        }
 
         // GET: Book
         //[Route("book/{id?}")]
@@ -32,6 +45,7 @@ namespace BookMall.Web.Controllers
                 Description = "Microsoft and our third-party vendors use cookies to store and access information such as unique IDs to deliver, maintain and improve our services and ads. If you agree, MSN and Microsoft Bing will personalise the content and ads that you see. You can select ‘I Accept’ to consent to these uses or click on ‘Manage preferences’ to review your options and exercise your right to object to Legitimate Interest where used.  You can change your selection under ‘Manage Preferences’ at the bottom of this page. Privacy Statement.",
                 Genre = "Programming",
                 ImageUrl = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
+                JpgFile = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
                 PdfFile = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
                 Price = (float)r.NextDouble() * 100,
                 Pages = r.Next(50, 2000),
@@ -56,17 +70,63 @@ namespace BookMall.Web.Controllers
         public ActionResult Create(HttpPostedFileBase file, Book book)
         {
             string fileName;
-            FileInfo fi = new FileInfo(file.FileName);
-            if (file != null && file.ContentLength > 0)
+            if (file != null)
             {
-                using (var md5 = MD5.Create()) {
-                    fileName = BitConverter.ToString(md5.ComputeHash(file.InputStream)).Replace("-", "");
-                    var path = Path.Combine(Server.MapPath("~/UserFiles/Books"), fileName + fi.Extension);
-                    file.SaveAs(path);
+                FileInfo fi = new FileInfo(file.FileName);
+                if (file != null && file.ContentLength > 0)
+                {
+                    using (var md5 = MD5.Create())
+                    {
+                        fileName = BitConverter.ToString(md5.ComputeHash(file.InputStream)).Replace("-", "");
+                        book.PdfFile = Path.Combine(Server.MapPath("~/UserFiles/Books"), fileName + fi.Extension);
+                        book.ImageUrl = "~/UserFiles/Covers" + fileName + ".jpg";
+                        book.JpgFile = Path.Combine(Server.MapPath("~/UserFiles/Covers"), fileName + ".jpg");
+                        if (!System.IO.File.Exists(book.PdfFile))
+                        {
+                            file.SaveAs(book.PdfFile);
+                        }
+                    }
+                }
+
+
+                Document pdfDocument = new Document(book.PdfFile);
+                book.Pages = pdfDocument.Pages.Count;
+
+                Resolution resolution = new Resolution(300);
+                JpegDevice JpegDevice = new JpegDevice(500, 700, resolution);
+                if (!System.IO.File.Exists(book.JpgFile))
+                {
+                    JpegDevice.Process(pdfDocument.Pages[1], book.JpgFile);
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            SessionStatus();
+            var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
+
+            PDbTable data = new PDbTable
+            {
+                OwnerId = user.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Genre = book.Genre,
+                ImageUrl = book.ImageUrl,
+                JpgFile = book.JpgFile,
+                PdfFile = book.PdfFile,
+                Price = book.Price,
+                Pages = book.Pages,
+                ISBN = book.ISBN
+            };
+
+            var bookCreate = _product.CreateProduct(data);
+            if (bookCreate.Status)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", bookCreate.StatusMsg);
+                return View();
+            }
         }
         public ActionResult Edit(int id)
         {

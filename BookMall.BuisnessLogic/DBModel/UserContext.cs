@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using BookMall.Domain.Entities.User; 
+using BookMall.Domain.Entities.User;
+using BookMall.Domain.Entities.Product;
 
 namespace BookMall.BuisnessLogic.DBModel
 {
@@ -17,6 +18,6 @@ namespace BookMall.BuisnessLogic.DBModel
 
         public virtual DbSet<UDbTable> Users { get; set; }
         public virtual DbSet<SessionsDbTable> Sessions { get; set; }
-        //public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<PDbTable> Products { get; set; }
     }
 }

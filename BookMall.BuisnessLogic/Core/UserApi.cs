@@ -248,10 +248,10 @@ namespace BookMall.BuisnessLogic.Core
             }
         }
 
-        internal List<ProductData> GetProductListByUser()
-        {
-            return new List<ProductData>();
-        }
+        //internal List<ProductData> GetProductListByUser()
+        //{
+        //    return new List<ProductData>();
+        //}
 
         internal HttpCookie Cookie(string loginCredential)
         {

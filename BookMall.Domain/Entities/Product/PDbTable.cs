@@ -9,7 +9,7 @@ using BookMall.Domain.Enums;
 
 namespace BookMall.Domain.Entities.Product
 {
-    internal class PDbTable
+    public class PDbTable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -30,6 +30,7 @@ namespace BookMall.Domain.Entities.Product
 
         public string Genre { get; set; }
         public string ImageUrl { get; set; }
+        public string JpgFile { get; set; }
         public string PdfFile { get; set; }
         public float Price { get; set; }
         public int Pages { get; set; }

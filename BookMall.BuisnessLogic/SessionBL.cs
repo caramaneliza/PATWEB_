@@ -15,7 +15,6 @@ namespace BookMall.BuisnessLogic
     {
         public PostResponse UserLogin(ULoginData data)
         {
-            //LOGIN
             return UserLoginAction(data);
         }
         public PostResponse UserSignup(USignupData data)

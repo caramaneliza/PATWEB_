@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="BuissnesLogic.cs" />
     <Compile Include="Core\AdminApi.cs" />
+    <Compile Include="Core\ProductApi.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DBModel\UserContext.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
@@ -64,6 +65,14 @@
     <Compile Include="Migrations\202205051642142_migration1.cs" />
     <Compile Include="Migrations\202205051642142_migration1.designer.cs">
       <DependentUpon>202205051642142_migration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205081052268_migration2.cs" />
+    <Compile Include="Migrations\202205081052268_migration2.designer.cs">
+      <DependentUpon>202205081052268_migration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205081329193_mig3.cs" />
+    <Compile Include="Migrations\202205081329193_mig3.designer.cs">
+      <DependentUpon>202205081329193_mig3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductBL.cs" />
@@ -93,6 +102,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205051642142_migration1.resx">
       <DependentUpon>202205051642142_migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081052268_migration2.resx">
+      <DependentUpon>202205081052268_migration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081329193_mig3.resx">
+      <DependentUpon>202205081329193_mig3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
