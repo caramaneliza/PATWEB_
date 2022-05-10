@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web; 
+using System.Web;
 
 namespace BookMall.Web.Models
 {
@@ -13,6 +13,7 @@ namespace BookMall.Web.Models
         public string Description { get; set; } 
         public string Genre { get; set; }
         public string ImageUrl { get; set; }
+        public string PdfUrl { get; set; }
         public string JpgFile { get; set; }
         public string PdfFile { get; set; }
         public float Price { get; set; }

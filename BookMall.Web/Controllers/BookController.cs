@@ -45,6 +45,7 @@ namespace BookMall.Web.Controllers
                 Description = "Microsoft and our third-party vendors use cookies to store and access information such as unique IDs to deliver, maintain and improve our services and ads. If you agree, MSN and Microsoft Bing will personalise the content and ads that you see. You can select ‘I Accept’ to consent to these uses or click on ‘Manage preferences’ to review your options and exercise your right to object to Legitimate Interest where used.  You can change your selection under ‘Manage Preferences’ at the bottom of this page. Privacy Statement.",
                 Genre = "Programming",
                 ImageUrl = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
+                PdfUrl = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
                 JpgFile = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
                 PdfFile = "https://m.media-amazon.com/images/I/51A8l+FxFNL.jpg",
                 Price = (float)r.NextDouble() * 100,
@@ -78,9 +79,10 @@ namespace BookMall.Web.Controllers
                     using (var md5 = MD5.Create())
                     {
                         fileName = BitConverter.ToString(md5.ComputeHash(file.InputStream)).Replace("-", "");
-                        book.PdfFile = Path.Combine(Server.MapPath("~/UserFiles/Books"), fileName + fi.Extension);
-                        book.ImageUrl = "~/UserFiles/Covers" + fileName + ".jpg";
-                        book.JpgFile = Path.Combine(Server.MapPath("~/UserFiles/Covers"), fileName + ".jpg");
+                        book.ImageUrl = "~/Content/Covers/" + fileName + ".jpg";
+                        book.PdfUrl = "~/Content/Books/" + fileName + fi.Extension;
+                        book.PdfFile = Path.Combine(Server.MapPath("~/Content/Books/"), fileName + fi.Extension);
+                        book.JpgFile = Path.Combine(Server.MapPath("~/Content/Covers/"), fileName + ".jpg");
                         if (!System.IO.File.Exists(book.PdfFile))
                         {
                             file.SaveAs(book.PdfFile);
@@ -110,6 +112,7 @@ namespace BookMall.Web.Controllers
                 Author = book.Author,
                 Genre = book.Genre,
                 ImageUrl = book.ImageUrl,
+                PdfUrl = book.PdfUrl,
                 JpgFile = book.JpgFile,
                 PdfFile = book.PdfFile,
                 Price = book.Price,

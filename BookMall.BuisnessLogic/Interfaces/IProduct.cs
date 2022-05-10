@@ -11,7 +11,8 @@ namespace BookMall.BuisnessLogic.Interfaces
     public interface IProduct
     {
         PostResponse CreateProduct(PDbTable product);
-        //List<ProductData> GetProductList();
+        List<ProductData> GetProductList(int page);
+
         //ProductData GetSingleProduct(int id);
     }
 }

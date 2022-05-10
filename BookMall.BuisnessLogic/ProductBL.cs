@@ -17,12 +17,15 @@ namespace BookMall.BuisnessLogic
         {
             return CreateProductAction(product);
         }
-
+        public List<ProductData> GetProductList(int page)
+        {
+            return GetProductListAction(page);
+        }
         //public List<ProductData> GetProductList()
         //{
         //    return GetProductListByUser();
         //}
-        
+
         //public ProductData GetSingleProduct(int id)
         //{
         //    return new ProductData();

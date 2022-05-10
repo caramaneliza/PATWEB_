@@ -31,5 +31,32 @@ namespace BookMall.BuisnessLogic.Core
 
             return new PostResponse { Status = true };
         }
+
+        internal List<ProductData> GetProductListAction(int page)
+        {
+            int onPage = 20;
+            List<ProductData> productData = new List<ProductData>();
+            using (var db = new UserContext())
+            {
+                var result = db.Products
+                    .OrderBy(f => f.Id)
+                    .Skip((page - 1) * onPage)
+                    .Take(onPage)
+                    .ToList();
+
+                for (int i = 0; i < result.Count; i++)
+                {
+                    productData.Add(new ProductData
+                    {
+                        Id = result[i].Id,
+                        ImageUrl = result[i].ImageUrl,
+                        Title = result[i].Title,
+                        Author = result[i].Author,
+                        Price = (decimal)result[i].Price
+                    });
+                }
+            }
+            return productData;
+        }
     }
 }
