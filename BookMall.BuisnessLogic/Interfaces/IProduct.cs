@@ -13,6 +13,6 @@ namespace BookMall.BuisnessLogic.Interfaces
         PostResponse CreateProduct(PDbTable product);
         List<ProductData> GetProductList(int page);
 
-        //ProductData GetSingleProduct(int id);
+        PDbTable GetSingleProduct(int id);
     }
 }

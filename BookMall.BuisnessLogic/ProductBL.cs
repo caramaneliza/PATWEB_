@@ -21,6 +21,10 @@ namespace BookMall.BuisnessLogic
         {
             return GetProductListAction(page);
         }
+        public PDbTable GetSingleProduct(int id)
+        {
+            return GetSingleProductAction(id);
+        }
         //public List<ProductData> GetProductList()
         //{
         //    return GetProductListByUser();

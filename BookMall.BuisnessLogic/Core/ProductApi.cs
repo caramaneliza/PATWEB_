@@ -58,5 +58,13 @@ namespace BookMall.BuisnessLogic.Core
             }
             return productData;
         }
+
+        internal PDbTable GetSingleProductAction(int id)
+        {
+            using (var db = new UserContext())
+            {
+                return db.Products.FirstOrDefault(p => p.Id == id);
+            }
+        }
     }
 }
