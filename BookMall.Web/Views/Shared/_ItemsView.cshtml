@@ -13,8 +13,16 @@
                 <div class="col-lg-2 col-md-3 col-6">
                     <div class="card border-primary mb-3 text-center">
                         <div class="card-footer text-muted">
-                            <img src="@Url.Content(book.ImageUrl)"
-                                 class="card-img-top img-thumbnail" alt="Book" />
+                            @if (book.ImageUrl == null || book.ImageUrl.Length < 1)
+                            {
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbooktrapper.com%2Fassets%2Fbook_placeholder-406203b0e6780be8153818c65f7d80061f62079d907f33fc092c2434cdf8e954.png&f=1&nofb=1" class="card-img-top img-thumbnail" alt="Book" />
+                            }
+                            else
+                            {
+                                <img src="@Url.Content(book.ImageUrl)" class="card-img-top img-thumbnail" alt="Book" />
+                            }
+
+
                             <smalla>
                                 <p class="item_text">
                                     @book.Title : @book.Author

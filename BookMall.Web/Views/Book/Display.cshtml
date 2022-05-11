@@ -4,15 +4,28 @@
     <div class="card border-primary">
         <div class="card-body">
             <h3 class="card-title">
-                @Model.Title
+                @if (Model.Title != null)
+                {
+                    @Model.Title
+                }
             </h3>
             <h6 class="card-subtitle">
-                @Model.Author
+                @if (Model.Author != null)
+                {
+                    @Model.Author
+                }
             </h6>
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6">
                     <div class="white-box text-center">
-                        <img src="@Url.Content(Model.ImageUrl)" class="img-responsive" width="100%">
+                        @if (Model.ImageUrl == null)
+                        {
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbooktrapper.com%2Fassets%2Fbook_placeholder-406203b0e6780be8153818c65f7d80061f62079d907f33fc092c2434cdf8e954.png&f=1&nofb=1" class="img-responsive" width="100%">
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(Model.ImageUrl)" class="img-responsive" width="100%">
+                        }
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-6">
@@ -33,14 +46,20 @@
                         <button class="btn btn-primary btn-rounded">Buy Now</button>
                     }
 
-                    <a href="@Url.Content(Model.PdfUrl)">
-                        <button class="btn btn-info btn-rounded">Download</button>
-                    </a>
+                    @if (Model.PdfUrl != null)
+                    {
+                        <a href="@Url.Content(Model.PdfUrl)">
+                            <button class="btn btn-info btn-rounded">Download</button>
+                        </a>}
 
                     @if (ViewBag.UserLevel == "Admin" || ViewBag.UserLevel == "Moderator")
                     {
                         <a href="/book/edit/@ViewBag.id">
                             <button class="btn btn-warning btn-rounded">Edit</button>
+                        </a>
+
+                        <a href="/book/delete/@ViewBag.id">
+                            <button class="btn btn-danger btn-rounded">Delete</button>
                         </a>
                     }
                 </div>

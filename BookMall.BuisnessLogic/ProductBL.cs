@@ -17,6 +17,10 @@ namespace BookMall.BuisnessLogic
         {
             return CreateProductAction(product);
         }
+        public PostResponse EditProduct(PDbTable product)
+        {
+            return EditProductAction(product);
+        }
         public List<ProductData> GetProductList(int page)
         {
             return GetProductListAction(page);
@@ -24,6 +28,10 @@ namespace BookMall.BuisnessLogic
         public PDbTable GetSingleProduct(int id)
         {
             return GetSingleProductAction(id);
+        }
+        public PostResponse DeleteProductById(int id)
+        {
+            return DeleteProductByIdAction(id);
         }
         //public List<ProductData> GetProductList()
         //{

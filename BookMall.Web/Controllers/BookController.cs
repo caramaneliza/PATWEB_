@@ -40,7 +40,7 @@ namespace BookMall.Web.Controllers
             var book = new Book()
             {
                 Author = pdbBok.Author,
-                Title =  pdbBok.Title,
+                Title = pdbBok.Title,
                 Description = pdbBok.Description,
                 Genre = pdbBok.Genre,
                 ImageUrl = pdbBok.ImageUrl,
@@ -64,6 +64,7 @@ namespace BookMall.Web.Controllers
 
             return View();
         }
+
         [ModeratorMod]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -130,14 +131,109 @@ namespace BookMall.Web.Controllers
                 return View();
             }
         }
+
+        [ModeratorMod]
         public ActionResult Edit(int id)
         {
-            return View();
+            SessionStatus();
+            GetUsername();
+            GetUserLevel();
+            ViewBag.id = id;
+            var pdbBok = _product.GetSingleProduct(id);
+            var book = new Book()
+            {
+                Id = pdbBok.Id,
+                Author = pdbBok.Author,
+                Title = pdbBok.Title,
+                Description = pdbBok.Description,
+                Genre = pdbBok.Genre,
+                ImageUrl = pdbBok.ImageUrl,
+                PdfUrl = pdbBok.PdfUrl,
+                JpgFile = pdbBok.JpgFile,
+                PdfFile = pdbBok.PdfFile,
+                Price = pdbBok.Price,
+                Pages = pdbBok.Pages,
+                ISBN = pdbBok.ISBN
+            };
+
+            return View(book);
         }
 
-        public string Delete(string id)
+
+        [ModeratorMod]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(HttpPostedFileBase file, Book book)
         {
-            return "Book " + id.ToString() + " was deleted successfully";
+            string fileName;
+            if (file != null)
+            {
+                FileInfo fi = new FileInfo(file.FileName);
+                if (file != null && file.ContentLength > 0)
+                {
+                    using (var md5 = MD5.Create())
+                    {
+                        fileName = BitConverter.ToString(md5.ComputeHash(file.InputStream)).Replace("-", "");
+                        book.ImageUrl = "~/Content/Covers/" + fileName + ".jpg";
+                        book.PdfUrl = "~/Content/Books/" + fileName + fi.Extension;
+                        book.PdfFile = Path.Combine(Server.MapPath("~/Content/Books/"), fileName + fi.Extension);
+                        book.JpgFile = Path.Combine(Server.MapPath("~/Content/Covers/"), fileName + ".jpg");
+                        if (!System.IO.File.Exists(book.PdfFile))
+                        {
+                            file.SaveAs(book.PdfFile);
+                        }
+                    }
+                }
+
+                Document pdfDocument = new Document(book.PdfFile);
+                book.Pages = pdfDocument.Pages.Count;
+
+                Resolution resolution = new Resolution(300);
+                JpegDevice JpegDevice = new JpegDevice(500, 700, resolution);
+                if (!System.IO.File.Exists(book.JpgFile))
+                {
+                    JpegDevice.Process(pdfDocument.Pages[1], book.JpgFile);
+                }
+            }
+
+            SessionStatus();
+            var user = (UProfileData)System.Web.HttpContext.Current?.Session["__SessionObject"];
+
+            PDbTable data = new PDbTable
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Genre = book.Genre,
+                ImageUrl = book.ImageUrl,
+                PdfUrl = book.PdfUrl,
+                JpgFile = book.JpgFile,
+                PdfFile = book.PdfFile,
+                Price = book.Price,
+                Pages = book.Pages,
+                ISBN = book.ISBN
+            };
+
+            var bookCreate = _product.EditProduct(data);
+            if (bookCreate.Status)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", bookCreate.StatusMsg);
+                return View();
+            }
+        }
+
+
+
+
+        [ModeratorMod]
+        public string Delete(int id)
+        {
+            var response = _product.DeleteProductById(id);
+            return response.StatusMsg;
         }
     }
 }

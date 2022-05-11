@@ -1,90 +1,102 @@
-﻿@model BookMall.Web.Models.Book
+﻿@using System.Web.Optimization
+@model BookMall.Web.Models.Book
 
-<div class="container my-4">
-    <div class="card border-primary">
-        <div class="card-body">
-            <h3 class="card-title">
-                @Model.Title
-            </h3>
-            <h6 class="card-subtitle">
-                @Model.Author
-            </h6>
-            <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6">
-                    <div class="white-box text-center">
-                        <img src="@Model.ImageUrl" class="img-responsive" width="100%">
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-7 col-sm-6">
-                    <h4 class="box-title mt-5">
-                        @Model.Title
-                        @ViewBag.id
-                    </h4>
-                    <div>
-                        @Model.Description
-                    </div>
-                    <h2 class="mt-5">
-                        $
-                        @Model.Price
-                    </h2>
-                    @if (ViewBag.UserLevel != "Admin" && ViewBag.UserLevel != "Moderator")
+
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+
+                    <h3 class="mb-5 text-center">Upload Book</h3>
+
+
+                    @Html.ValidationSummary(true)
+                    @using (Html.BeginForm("Edit", "Book", FormMethod.Post,
+                                                   new
+                                                   {
+                                                       enctype = "multipart/form-data",
+                                                       target = "UploadTarget",
+                                                       @id = "EditBookForm"
+                                                   }))
+                    //new { @id = "CreateBookForm" }))
                     {
-                        <button class="btn btn-dark btn-rounded">Add to Cart</button>
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.Id)
 
-                        <button class="btn btn-primary btn-rounded">Buy Now</button>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Title, new { placeholder = "Book Title", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Author, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Author, new { placeholder = "Book Author", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Genre, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Genre, new { placeholder = "Book Genre", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                            @Html.TextAreaFor(m => m.Description, new { placeholder = "Book Description", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Price, new { type = "number", placeholder = "Book Price", @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ISBN, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ISBN, new { placeholder = "Book ISBN", @class = "form-control" })
+                        </div>
+                        <label for="file">Book file</label>
+                        <input type="file" name="file" class="form-control" />
+
+                        <br />
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" style="width:100%">Save</button>
+
                     }
 
 
-                    <button class="btn btn-info btn-rounded">Download</button>
-                    @if (ViewBag.UserLevel == "Admin" || ViewBag.UserLevel == "Moderator")
-                    {
-                        <a href="/book/edit/@ViewBag.id">
-                            <button class="btn btn-warning btn-rounded">Edit</button>
-                        </a>
-                    }
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h3 class="box-title mt-5">General Info</h3>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-product">
-                            <tbody>
-                                <tr>
-                                    <td>Title</td>
-                                    <td>
-                                        @Model.Title
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Category</td>
-                                    <td>
-                                        @Model.Genre
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Author</td>
-                                    <td>
-                                        @Model.Author
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Page number</td>
-                                    <td>
-                                        @Model.Pages
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ISBN</td>
-                                    <td>
-                                        @Model.ISBN
-                                    </td>
-                                </tr>
-
-
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/validation/js")
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#EditBookForm").validate({
+                rules: {
+                    Title: {
+                        required: true
+                    },
+                    CurentPassword: {
+                        required: false
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                },
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .append(error);
+                },
+                errorElement: "span"
+            });
+        });
+
+
+    </script>
+}
+
