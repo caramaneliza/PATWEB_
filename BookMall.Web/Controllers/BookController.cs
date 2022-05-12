@@ -25,7 +25,7 @@ namespace BookMall.Web.Controllers
         }
 
         // GET: Book
-        //[Route("book/{id?}")]
+        // [Route("book/{id?}")]
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Home");
@@ -225,9 +225,6 @@ namespace BookMall.Web.Controllers
                 return View();
             }
         }
-
-
-
 
         [ModeratorMod]
         public string Delete(int id)
